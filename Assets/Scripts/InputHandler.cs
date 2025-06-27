@@ -1,18 +1,23 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InputHandler : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    [SerializeField] InputField nameInput;
+    [SerializeField] string filename;
+
+    List<InputEntry> entries = new List<InputEntry>();
+
+    private void Start() {
+        entries = FileHandler.ReadFromJSON<InputEntry>(filename);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void AddNameToList()
     {
-        
+        entries.Add(new InputEntry(nameInput.text, 0));
+
+        FileHandler.SaveToJSON<InputEntry>(entries, filename);
     }
+    
 }
