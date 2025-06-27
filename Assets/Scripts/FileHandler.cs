@@ -8,20 +8,20 @@ public static class FileHandler
 {
     public static void SaveToJSON<T>(List<T> toSave, string fileName)
     {
-        Debug.Log(GetPath(filename))
+        Debug.Log(GetPath(fileName));
         string content = JsonHelper.ToJson<T>(toSave.ToArray());
         WriteFile(GetPath(fileName), content);
     }
 
-    public static List<T> ReadFromJSON(string filename)
+    public static List<T> ReadFromJSON<T>(string filename)
     {
         string content = ReadFile(GetPath(filename));
         
-        if (string.IsNullOrEmpty(content) || content = "{}") {
+        if (string.IsNullOrEmpty(content) || content == "{}") {
             return new List<T>();
         }
 
-        List<T> response = JsonHelper.FromJson<T>(content).ToList;
+        List<T> response = JsonHelper.FromJson<T>(content).ToList();
 
         return response;
     }

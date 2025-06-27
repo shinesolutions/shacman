@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Text scoreText;
     [SerializeField] private Text livesText;
 
+    public string playerName { get; private set; }
+
     public int score { get; private set; } = 0;
     public int lives { get; private set; } = 3;
 
@@ -87,6 +89,11 @@ public class GameManager : MonoBehaviour
         }
 
         pacman.gameObject.SetActive(false);
+
+        // Game Over State
+        // Move to Highscore UI Panel
+        // Call HighScoreHandler.AddHighScoreIfPossible(new HighScoreElement(playerName, score))
+
     }
 
     private void SetLives(int lives)
@@ -101,15 +108,23 @@ public class GameManager : MonoBehaviour
         scoreText.text = score.ToString().PadLeft(2, '0');
     }
 
+    private void SetPlayerName(string playerName)
+    {
+        this.playerName = playerName;
+    }
+
     public void PacmanEaten()
     {
         pacman.DeathSequence();
 
         SetLives(lives - 1);
 
-        if (lives > 0) {
+        if (lives > 0)
+        {
             Invoke(nameof(ResetState), 3f);
-        } else {
+        }
+        else
+        {
             GameOver();
         }
     }
