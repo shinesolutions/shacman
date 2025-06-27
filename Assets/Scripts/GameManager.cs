@@ -41,7 +41,9 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (lives <= 0 && Input.anyKeyDown) {
+        // Update this to change screen to home screen
+        if (lives <= 0 && Input.GetKeyDown(KeyCode.Escape)) {
+            // check if hi score and change to hi score screen
             NewGame();
         }
     }
@@ -57,7 +59,8 @@ public class GameManager : MonoBehaviour
     {
         gameOverText.enabled = false;
 
-        foreach (Transform pellet in pellets) {
+        foreach (Transform pellet in pellets)
+        {
             pellet.gameObject.SetActive(true);
         }
 
@@ -66,7 +69,8 @@ public class GameManager : MonoBehaviour
 
     private void ResetState()
     {
-        for (int i = 0; i < ghosts.Length; i++) {
+        for (int i = 0; i < ghosts.Length; i++)
+        {
             ghosts[i].ResetState();
         }
 
@@ -77,7 +81,8 @@ public class GameManager : MonoBehaviour
     {
         gameOverText.enabled = true;
 
-        for (int i = 0; i < ghosts.Length; i++) {
+        for (int i = 0; i < ghosts.Length; i++)
+        {
             ghosts[i].gameObject.SetActive(false);
         }
 
