@@ -12,7 +12,8 @@ public class Pellet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.layer == LayerMask.NameToLayer("Pacman")) {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Pacman"))
+        {
             Eat();
         }
     }
