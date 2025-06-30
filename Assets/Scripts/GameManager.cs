@@ -7,7 +7,12 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
-    public AudioSource sirenAudio;
+    private AudioSource sirenAudio;
+    public AudioSource siren1Audio;
+    public AudioSource siren2Audio;
+    public AudioSource siren3Audio;
+    public AudioSource siren4Audio;
+    public AudioSource siren5Audio;
     public AudioSource munch1Audio;
     public AudioSource munch2Audio;
     public AudioSource eatGhostAudio;
@@ -21,6 +26,7 @@ public class GameManager : MonoBehaviour
     public bool pacmanEaten = false;
     public static bool isBlocked = false;
     public bool roundFinished = false;
+    public int powerPelletsRemaining = 4;
 
     [SerializeField] private Ghost[] ghosts;
     [SerializeField] private Pacman pacman;
@@ -59,6 +65,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        sirenAudio = siren1Audio;
         NewGame();
     }
 
@@ -119,6 +126,9 @@ public class GameManager : MonoBehaviour
 
     private void NewRound()
     {
+        powerPelletsRemaining = 4;
+        UpdateSirenAudioSource();
+        
         isBlocked = true;
         gameOverText.enabled = false;
         readyText.enabled = true;
@@ -146,6 +156,7 @@ public class GameManager : MonoBehaviour
         EnableAllCharacters(true);
 
         ResetState();
+        ResetPowerMode();
     }
 
     private void ResetState()
@@ -241,7 +252,8 @@ public class GameManager : MonoBehaviour
 
         if (!HasRemainingPellets())
         {
-            pacman.gameObject.SetActive(false);
+            // pacman.gameObject.SetActive(false);
+            roundFinished = true;
 
             sirenAudio.Stop();
             powerPelletAudio.Stop();
@@ -271,6 +283,9 @@ public class GameManager : MonoBehaviour
 
     public void PowerPelletEaten(PowerPellet pellet)
     {
+        powerPelletsRemaining--;
+        UpdateSirenAudioSource();
+
         powerMode = true;
         for (int i = 0; i < ghosts.Length; i++)
         {
@@ -295,6 +310,23 @@ public class GameManager : MonoBehaviour
         }
 
         return false;
+    }
+
+    private void UpdateSirenAudioSource()
+    {
+        if (sirenAudio.isPlaying)
+        {
+            sirenAudio.Stop();
+        }
+
+        sirenAudio = powerPelletsRemaining switch
+        {
+            3 => siren2Audio,
+            2 => siren3Audio,
+            1 => siren4Audio,
+            0 => siren5Audio,
+            _ => siren1Audio,
+        };
     }
 
     private void ResetGhostMultiplier()
