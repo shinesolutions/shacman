@@ -26,7 +26,6 @@ public class Movement : MonoBehaviour
 
     public void ResetState()
     {
-        speedMultiplier = 1f;
         direction = initialDirection;
         nextDirection = Vector2.zero;
         transform.position = startingPosition;
@@ -34,11 +33,22 @@ public class Movement : MonoBehaviour
         enabled = true;
     }
 
+    public void IncreaseSpeed()
+    {
+        speedMultiplier += 0.1f;
+    }
+
+    public void ResetSpeed()
+    {
+        speedMultiplier = 1f;
+    }
+
     private void Update()
     {
         // Try to move in the next direction while it's queued to make movements
         // more responsive
-        if (nextDirection != Vector2.zero) {
+        if (nextDirection != Vector2.zero)
+        {
             SetDirection(nextDirection);
         }
     }

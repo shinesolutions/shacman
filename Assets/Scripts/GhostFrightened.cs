@@ -8,6 +8,7 @@ public class GhostFrightened : GhostBehavior
     public SpriteRenderer white;
 
     private bool eaten;
+    private float previousSpeed = 1f;
 
     public override void Enable(float duration)
     {
@@ -55,6 +56,7 @@ public class GhostFrightened : GhostBehavior
 
     private void OnEnable()
     {
+        previousSpeed = ghost.movement.speedMultiplier;
         blue.GetComponent<AnimatedSprite>().Restart();
         ghost.movement.speedMultiplier = 0.5f;
         eaten = false;
@@ -62,7 +64,7 @@ public class GhostFrightened : GhostBehavior
 
     private void OnDisable()
     {
-        ghost.movement.speedMultiplier = 1f;
+        ghost.movement.speedMultiplier = previousSpeed;
         eaten = false;
     }
 

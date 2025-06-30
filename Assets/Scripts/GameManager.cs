@@ -122,6 +122,11 @@ public class GameManager : MonoBehaviour
         SetScore(0);
         SetLives(3);
         NewRound();
+
+        for (int i = 0; i < ghosts.Length; i++)
+        {
+            ghosts[i].ResetSpeed();
+        }
     }
 
     private void NewRound()
@@ -151,6 +156,11 @@ public class GameManager : MonoBehaviour
         foreach (Transform pellet in pellets)
         {
             pellet.gameObject.SetActive(true);
+        }
+
+        for (int i = 0; i < ghosts.Length; i++)
+        {
+            ghosts[i].IncreaseSpeed();
         }
 
         EnableAllCharacters(true);
@@ -227,7 +237,7 @@ public class GameManager : MonoBehaviour
         SetScore(score + points);
         eatGhostAudio.Play();
 
-        ghostMultiplier++;
+        ghostMultiplier *= 2;
     }
 
     public void PelletEaten(Pellet pellet)
