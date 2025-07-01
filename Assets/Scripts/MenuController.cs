@@ -28,7 +28,7 @@ public class MenuController : MonoBehaviour
     void Update()
     {
         Debug.Log("updating");
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Return))
         {
             Debug.Log("Escape pressed");
             SceneController.instance.LoadGameScene();
