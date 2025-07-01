@@ -7,6 +7,14 @@ public class HighScoreHandler : MonoBehaviour
     [SerializeField] int maxLength = 10;
     [SerializeField] string fileName;
 
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SceneController.instance.LoadMenuScene();
+        }
+    }
+
     private void LoadHighScores()
     {
         highScoreList = FileHandler.ReadFromJSON<HighScoreElement>(fileName);

@@ -6,6 +6,15 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/EntryPointScene.unity
+    guid: 811b83aee6b4a4474b89c88ad0825ce7
+  - enabled: 1
+    path: Assets/Scenes/Menu.unity
+    guid: cdb8c99a2b0ed4462885f7fdbeb6944a
+  - enabled: 1
     path: Assets/Scenes/Pacman.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/HiScore.unity
+    guid: 246246b07a0054cff9cb7396ed65b8e2
   m_configObjects: {}

@@ -188,8 +188,14 @@ public class GameManager : MonoBehaviour
 
         // Game Over State
         // Move to Highscore UI Panel
+        Invoke(nameof(NavigateToHiScore), 3f);
         // Call HighScoreHandler.AddHighScoreIfPossible(new HighScoreElement(playerName, score))
 
+    }
+
+    private void NavigateToHiScore()
+    {
+        SceneController.instance.LoadHiScoreScene();
     }
 
     private void SetLives(int lives)
