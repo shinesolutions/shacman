@@ -18,6 +18,10 @@ public class Pacman : MonoBehaviour
 
     private void Update()
     {
+        if (GameManager.isBlocked) {
+            return;
+        }
+
         // Set the new direction based on the current input
         if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) {
             movement.SetDirection(Vector2.up);

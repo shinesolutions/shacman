@@ -30,6 +30,9 @@ public class GhostHome : GhostBehavior
 
     private IEnumerator ExitTransition()
     {
+        // Wait for the game to be unblocked before the ghost attempts to exit.
+        yield return new WaitWhile(() => GameManager.isBlocked);
+
         // Turn off movement while we manually animate the position
         ghost.movement.SetDirection(Vector2.up, true);
         ghost.movement.rb.isKinematic = true;

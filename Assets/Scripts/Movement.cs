@@ -55,6 +55,11 @@ public class Movement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (GameManager.isBlocked) {
+            rb.velocity = Vector2.zero;
+            return;
+        }
+
         Vector2 position = rb.position;
         Vector2 translation = speed * speedMultiplier * Time.fixedDeltaTime * direction;
 

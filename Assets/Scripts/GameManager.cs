@@ -85,13 +85,6 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        // Update this to change screen to home screen
-        if (lives <= 0 && Input.GetKeyDown(KeyCode.Escape))
-        {
-            // check if hi score and change to hi score screen
-            NewGame();
-        }
-
         if (!pacmanEaten)
         {
             if (powerMode)
@@ -123,7 +116,7 @@ public class GameManager : MonoBehaviour
     {
         SetScore(startingScore);
         SetLives(startingLives);
-        NewRound();
+        StartCoroutine(NewRound());
 
         for (int i = 0; i < ghosts.Length; i++)
         {
@@ -131,7 +124,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void NewRound()
+    private IEnumerator NewRound()
     {
         powerPelletsRemaining = 4;
         UpdateSirenAudioSource();
@@ -143,8 +136,8 @@ public class GameManager : MonoBehaviour
 
         sirenAudio.Pause();
 
-        // RoundStartAction();
         roundStartAudio.Play();
+        yield return new WaitForSeconds(4f);
         
         readyText.enabled = false;
         sirenAudio.UnPause();
@@ -282,7 +275,7 @@ public class GameManager : MonoBehaviour
             EnableAllCharacters(false);
 
             Invoke(nameof(ShowReady), 2f);
-            Invoke(nameof(NewRound), 5.3f);
+            StartCoroutine(NewRound());
         }
     }
 
