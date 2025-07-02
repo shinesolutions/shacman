@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.IO;
+using System.Linq;
 
 [DefaultExecutionOrder(-100)]
 public class GameManager : MonoBehaviour
@@ -34,11 +36,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Text gameOverText;
     [SerializeField] private Text readyText;
     [SerializeField] private Text scoreText;
-    [SerializeField] private Text livesText;
+    [SerializeField] private Text hiScoreText; // Added for Hi Score
+    [SerializeField] private GameObject[] livesIndicators;
 
     public string playerName { get; private set; }
 
     public int score { get; private set; } = 0;
+    public int hiScore { get; private set; } = 0;
     public int lives { get; private set; } = 3;
 
     private int ghostMultiplier = 1;
@@ -68,6 +72,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         sirenAudio = siren1Audio;
+        LoadHiScore();
         NewGame();
     }
 
@@ -182,11 +187,7 @@ public class GameManager : MonoBehaviour
 
         EnableAllCharacters(false);
 
-        // Game Over State
-        // Move to Highscore UI Panel
         Invoke(nameof(NavigateToHiScore), 3f);
-        // Call HighScoreHandler.AddHighScoreIfPossible(new HighScoreElement(playerName, score))
-
     }
 
     private void NavigateToHiScore()
@@ -197,13 +198,45 @@ public class GameManager : MonoBehaviour
     private void SetLives(int lives)
     {
         this.lives = lives;
-        livesText.text = "x" + lives.ToString();
+
+        // Loop through all indicators and only activate the ones we have lives for.
+        for (int i = 0; i < livesIndicators.Length; i++)
+        {
+            livesIndicators[i].SetActive(i < this.lives);
+        }
     }
 
     private void SetScore(int score)
     {
         this.score = score;
         scoreText.text = score.ToString().PadLeft(2, '0');
+
+        if (this.score > this.hiScore)
+        {
+            SetHiScore(this.score);
+        }
+    }
+
+    private void SetHiScore(int score)
+    {
+        this.hiScore = score;
+        hiScoreText.text = score.ToString().PadLeft(2, '0');
+    }
+
+    private void LoadHiScore()
+    {
+        string path = Path.Combine(Application.persistentDataPath, "hiscores.json");
+
+        if (File.Exists(path))
+        {
+            string json = File.ReadAllText(path);
+            HiScoreList list = JsonUtility.FromJson<HiScoreList>(json);
+
+            if (list.scores.Length > 0)
+            {
+                SetHiScore(list.scores[0].score);
+            }
+        }
     }
 
     private void SetPlayerName(string playerName)
@@ -215,7 +248,6 @@ public class GameManager : MonoBehaviour
     {
         pacmanEaten = true;
         sirenAudio.Stop();
-        // This should never happen as PacMan should not be able to die in this mode.
         powerPelletAudio.Stop();
 
         pacmanEatenAudio.Play();
@@ -264,7 +296,6 @@ public class GameManager : MonoBehaviour
 
         if (!HasRemainingPellets())
         {
-            // pacman.gameObject.SetActive(false);
             roundFinished = true;
 
             sirenAudio.Stop();
