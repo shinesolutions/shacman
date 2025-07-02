@@ -186,7 +186,6 @@ public class GameManager : MonoBehaviour
     {
         gameOverText.enabled = true;
         PlayerPrefs.SetInt("LastScore", this.score);
-        Debug.Log(PlayerPrefs.GetInt("LastScore"));
 
         EnableAllCharacters(false);
 

@@ -26,16 +26,13 @@ public class HiScoreManager : MonoBehaviour
     void Start()
     {
         savePath = Path.Combine(Application.persistentDataPath, "hiscores.json");
-        Debug.Log(savePath);
         LoadScores();
 
         // Check if a new high score was passed from the game scene.
         // We use PlayerPrefs as a simple way to pass data between scenes.
         int potentialNewScore = PlayerPrefs.GetInt("LastScore", 0);
-        Debug.Log(potentialNewScore.ToString());
         if (potentialNewScore > 0 && IsHiScore(potentialNewScore))
         {
-            Debug.Log("PotentialNewScore Qualifies");
             newScore = potentialNewScore;
             PlayerPrefs.SetInt("LastScore", 0); // Clear it so we don't trigger again
             StartNameEntry();
@@ -136,7 +133,6 @@ public class HiScoreManager : MonoBehaviour
 
     private void StartNameEntry()
     {
-        Debug.Log("StartingNameEntry");
         nameEntryPanel.SetActive(true);
         currentName = DefaultName.ToCharArray();
         currentNameCharIndex = 0;
