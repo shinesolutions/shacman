@@ -42,6 +42,8 @@ public class GameManager : MonoBehaviour
     public int lives { get; private set; } = 3;
 
     private int ghostMultiplier = 1;
+    private int startingLives = 1;
+    private int startingScore = 3000;
 
     private void Awake()
     {
@@ -119,8 +121,8 @@ public class GameManager : MonoBehaviour
 
     private void NewGame()
     {
-        SetScore(0);
-        SetLives(3);
+        SetScore(startingScore);
+        SetLives(startingLives);
         NewRound();
 
         for (int i = 0; i < ghosts.Length; i++)

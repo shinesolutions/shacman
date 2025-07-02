@@ -28,19 +28,16 @@ public class SceneController : MonoBehaviour
 
     public void LoadMenuScene()
     {
-        Debug.Log("Loading menu scene");
         SceneManager.LoadScene("Menu", LoadSceneMode.Single);
     }
 
     public void LoadGameScene()
     {
-        Debug.Log("Loading pacman scene");
         SceneManager.LoadScene("Pacman", LoadSceneMode.Single);
     }
 
     public void LoadHiScoreScene()
     {
-        Debug.Log("Loading hiscore scene");
         SceneManager.LoadScene("HiScore", LoadSceneMode.Single);
     }
 }
