@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour
 
     private int ghostMultiplier = 1;
     private int startingLives = 1;
-    private int startingScore = 3000;
+    private int startingScore = 10000;
 
     private void Awake()
     {

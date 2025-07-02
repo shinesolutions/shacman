@@ -11,6 +11,7 @@ public class HiScoreManager : MonoBehaviour
 
     public GameObject nameEntryPanel;
     public Text nameEntryText;
+    public RectTransform underlineCursor; // The underline/cursor image
 
     private HiScoreList hiScoreList;
     private string savePath;
@@ -21,7 +22,9 @@ public class HiScoreManager : MonoBehaviour
     private int currentNameCharIndex = 0;
     private int newScore;
 
-    private static readonly string Alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXZYZ0123456789_-";
+    private const float cursorPositionAdjustment = 5f;
+
+    private static readonly string Alphabet = " ABCDEFGHIJKLMNOPQRSTUVWXZYZ0123456789._-";
 
     void Start()
     {
@@ -96,7 +99,7 @@ public class HiScoreManager : MonoBehaviour
 
     #region Score Display
 
-    private void DisplayScores()
+    private void DisplayScores(ScoreEntry highlightEntry = null)
     {
         // Clear any existing score entries in the UI.
         foreach (Transform child in scoreListParent)
@@ -111,9 +114,17 @@ public class HiScoreManager : MonoBehaviour
             texts[0].text = (i + 1).ToString("D2"); // Rank
             texts[1].text = hiScoreList.scores[i].playerName; // Name
             texts[2].text = hiScoreList.scores[i].score.ToString(); // Score
+
+            // Highlight the new score in white, otherwise use yellow.
+            if (highlightEntry != null && hiScoreList.scores[i].playerName == highlightEntry.playerName && hiScoreList.scores[i].score == highlightEntry.score)
+            {
+                foreach (var text in texts) {
+                    text.color = Color.white;
+                }
+            }
         }
 
-        Invoke("NavigateToMenu", 5f);
+        Invoke(nameof(NavigateToMenu), 5f);
     }
 
     private void NavigateToMenu()
@@ -180,9 +191,8 @@ public class HiScoreManager : MonoBehaviour
 
     private void UpdateNameDisplayText()
     {
-        // Add an underline or highlight to show which character is selected
+        // Build the string with a color tag for the selected character.
         string displayName = "";
-
         for (int i = 0; i < currentName.Length; i++)
         {
             if (i == currentNameCharIndex)
@@ -194,17 +204,36 @@ public class HiScoreManager : MonoBehaviour
                 displayName += currentName[i];
             }
         }
-
         nameEntryText.text = displayName;
+
+        // Calculate the position for the underline cursor within the local space of the canvas
+        if (underlineCursor != null)
+        {
+            // Calculate the width of a single character in UI units.
+            TextGenerator textGen = new TextGenerator();
+            TextGenerationSettings generationSettings = nameEntryText.GetGenerationSettings(nameEntryText.rectTransform.rect.size);
+            float charWidth = textGen.GetPreferredWidth("A", generationSettings); // Use a character for better accuracy
+
+            // Calculate the starting X position of the text block (its left edge).
+            float textBlockStartX = nameEntryText.rectTransform.anchoredPosition.x - (nameEntryText.rectTransform.rect.width / 2f);
+
+            // Calculate the local X position for the cursor.
+            float cursorX = textBlockStartX + (charWidth * (currentNameCharIndex + 0.5f)) - cursorPositionAdjustment;
+
+            // Set the underline's local position.
+            underlineCursor.anchoredPosition = new Vector2(cursorX, underlineCursor.anchoredPosition.y);
+        }
     }
 
     private void FinalizeAndSaveScore()
     {
         nameEntryPanel.SetActive(false);
 
+        ScoreEntry newEntry = new ScoreEntry(new string(currentName), newScore);
+
         // Add the new score and sort the list.
         List<ScoreEntry> tempList = hiScoreList.scores.ToList();
-        tempList.Add(new ScoreEntry(new string(currentName), newScore));
+        tempList.Add(newEntry);
         hiScoreList.scores = tempList.OrderByDescending(s => s.score).ToArray();
 
         // Trim the list if it's too long.
@@ -214,7 +243,7 @@ public class HiScoreManager : MonoBehaviour
         }
 
         SaveScores();
-        DisplayScores();
+        DisplayScores(newEntry);
     }
 
     #endregion
