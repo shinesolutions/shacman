@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 9f919fc50b2c1b447972a08466b5e19c
+guid: 6cefbb0cc2687451fb0639bde3ab096d
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Retro Gaming
+  - Press Start 2P
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0

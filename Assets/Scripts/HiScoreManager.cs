@@ -26,6 +26,7 @@ public class HiScoreManager : MonoBehaviour
     void Start()
     {
         savePath = Path.Combine(Application.persistentDataPath, "hiscores.json");
+        Debug.Log(savePath);
         LoadScores();
 
         // Check if a new high score was passed from the game scene.
