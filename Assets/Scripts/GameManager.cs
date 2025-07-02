@@ -225,18 +225,7 @@ public class GameManager : MonoBehaviour
 
     private void LoadHiScore()
     {
-        string path = Path.Combine(Application.persistentDataPath, "hiscores.json");
-
-        if (File.Exists(path))
-        {
-            string json = File.ReadAllText(path);
-            HiScoreList list = JsonUtility.FromJson<HiScoreList>(json);
-
-            if (list.scores.Length > 0)
-            {
-                SetHiScore(list.scores[0].score);
-            }
-        }
+        SetHiScore(HiScoreUtil.GetTopScore());
     }
 
     private void SetPlayerName(string playerName)
