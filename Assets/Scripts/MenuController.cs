@@ -10,15 +10,13 @@ public class MenuController : MonoBehaviour
         // Load and display the high score when the menu starts.
         if (hiScoreText != null)
         {
-            hiScoreText.text = HiScoreUtil.GetTopScore().ToString();
+            hiScoreText.text = "HI-SCORE: " + HiScoreUtil.GetTopScore().ToString();
         }
     }
 
-    void Update()
+    // This method is called by the PlayerInput component when the "Submit" action is triggered.
+    private void OnSubmit()
     {
-        if (Input.GetKeyDown(KeyCode.Return))
-        {
-            SceneController.instance.LoadGameScene();
-        }
+        SceneController.instance.LoadGameScene();
     }
 }

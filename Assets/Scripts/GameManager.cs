@@ -286,17 +286,20 @@ public class GameManager : MonoBehaviour
         if (!HasRemainingPellets())
         {
             roundFinished = true;
-
             sirenAudio.Stop();
             powerPelletAudio.Stop();
-
             roundEndAudio.Play();
-
             EnableAllCharacters(false);
 
-            Invoke(nameof(ShowReady), 2f);
-            StartCoroutine(NewRound());
+            // Wait for the round end sound to finish before starting the new round sequence.
+            // The 5.3f delay should be slightly longer than the roundEndAudio clip.
+            Invoke(nameof(StartNewRoundSequence), 5.3f);
         }
+    }
+
+    private void StartNewRoundSequence()
+    {
+        StartCoroutine(NewRound());
     }
 
     private void EnableAllCharacters(bool enable)

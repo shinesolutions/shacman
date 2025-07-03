@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using System.IO;
 using System.Linq;
 using System.Collections.Generic;
+using UnityEngine.InputSystem;
 
 public class HiScoreManager : MonoBehaviour
 {
@@ -47,14 +48,7 @@ public class HiScoreManager : MonoBehaviour
         }
     }
 
-    void Update()
-    {
-        // Only process input if the name entry panel is active.
-        if (nameEntryPanel.activeSelf)
-        {
-            HandleNameEntryInput();
-        }
-    }
+    
 
     #region Data Handling (Load/Save)
 
@@ -152,32 +146,41 @@ public class HiScoreManager : MonoBehaviour
 
     private void HandleNameEntryInput()
     {
-        // Move to the next character
-        if (Input.GetKeyDown(KeyCode.RightArrow))
+        // This method is now handled by OnMove and OnSubmit
+    }
+
+    private void OnMove(InputValue value)
+    {
+        if (!nameEntryPanel.activeSelf) return;
+
+        Vector2 input = value.Get<Vector2>().normalized;
+
+        if (input.x > 0.5f) // Right
         {
             currentNameCharIndex = (currentNameCharIndex + 1) % currentName.Length;
         }
-        // Move to the previous character
-        else if (Input.GetKeyDown(KeyCode.LeftArrow))
+        else if (input.x < -0.5f) // Left
         {
             currentNameCharIndex = (currentNameCharIndex - 1 + currentName.Length) % currentName.Length;
         }
-        // Decrement the current character
-        else if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            ChangeCharacter(-1);
-        }
-        // Increment the current character
-        else if (Input.GetKeyDown(KeyCode.DownArrow))
+        else if (input.y > 0.5f) // Up
         {
             ChangeCharacter(1);
         }
-        else if (Input.GetKeyDown(KeyCode.Return))
+        else if (input.y < -0.5f) // Down
         {
-            FinalizeAndSaveScore();
+            ChangeCharacter(-1);
         }
 
         UpdateNameDisplayText();
+    }
+
+    private void OnSubmit()
+    {
+        if (nameEntryPanel.activeSelf)
+        {
+            FinalizeAndSaveScore();
+        }
     }
 
     private void ChangeCharacter(int direction)

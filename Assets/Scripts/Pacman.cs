@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Movement))]
 public class Pacman : MonoBehaviour
@@ -18,27 +19,30 @@ public class Pacman : MonoBehaviour
 
     private void Update()
     {
+        // Rotate pacman to face the movement direction every frame.
+        float angle = Mathf.Atan2(movement.direction.y, movement.direction.x);
+        transform.rotation = Quaternion.AngleAxis(angle * Mathf.Rad2Deg, Vector3.forward);
+    }
+
+    // This method is called by the PlayerInput component when the "Move" action is triggered.
+    private void OnMove(InputValue value)
+    {
         if (GameManager.isBlocked) {
             return;
         }
 
-        // Set the new direction based on the current input
-        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) {
-            movement.SetDirection(Vector2.up);
-        }
-        else if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow)) {
-            movement.SetDirection(Vector2.down);
-        }
-        else if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow)) {
-            movement.SetDirection(Vector2.left);
-        }
-        else if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow)) {
-            movement.SetDirection(Vector2.right);
-        }
+        // Get the Vector2 from the joystick or WASD keys.
+        Vector2 input = value.Get<Vector2>().normalized;
 
-        // Rotate pacman to face the movement direction
-        float angle = Mathf.Atan2(movement.direction.y, movement.direction.x);
-        transform.rotation = Quaternion.AngleAxis(angle * Mathf.Rad2Deg, Vector3.forward);
+        // Prioritize vertical movement over horizontal
+        if (Mathf.Abs(input.y) > Mathf.Abs(input.x))
+        {
+            movement.SetDirection(new Vector2(0, input.y));
+        }
+        else if (Mathf.Abs(input.x) > Mathf.Abs(input.y))
+        {
+            movement.SetDirection(new Vector2(input.x, 0));
+        }
     }
 
     public void ResetState()
