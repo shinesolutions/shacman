@@ -3110,7 +3110,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: CREDIT
+  m_Text: AWS PARTNER CREDIT
 --- !u!222 &991360596
 CanvasRenderer:
   m_ObjectHideFlags: 0

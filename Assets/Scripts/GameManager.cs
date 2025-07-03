@@ -46,8 +46,8 @@ public class GameManager : MonoBehaviour
     public int lives { get; private set; } = 3;
 
     private int ghostMultiplier = 1;
-    private int startingLives = 1;
-    private int startingScore = 10000;
+    private int startingLives = 3;
+    private int startingScore = 0;
 
     private void Awake()
     {

@@ -88,6 +88,28 @@
                     "isPartOfComposite": false
                 },
                 {
+                    "name": "",
+                    "id": "480de3dd-8d74-4b39-85a9-0bb11906dbb1",
+                    "path": "<HID::PowerA NSW wired controller>/button10",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Submit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "77cee574-0217-400a-876d-a63a90fcc3b4",
+                    "path": "<HID::PowerA NSW wired controller>/button3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Submit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
                     "name": "2D Vector",
                     "id": "bf3407f4-0c8a-4951-b5ca-c85258158176",
                     "path": "2DVector",
@@ -220,6 +242,72 @@
                     "isPartOfComposite": false
                 },
                 {
+                    "name": "2D Vector",
+                    "id": "2a711c7e-658b-4c8e-8162-8aa33d618c9b",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "cc576e7f-3811-4f78-ace2-84e48b86e21a",
+                    "path": "<HID::PowerA NSW wired controller>/hat/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "40f3385f-a4f0-4162-97a9-8d40af9f18bf",
+                    "path": "<HID::PowerA NSW wired controller>/hat/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "8c96b099-5d79-4387-a03d-17794c5d6388",
+                    "path": "<HID::PowerA NSW wired controller>/hat/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "94e1c61f-cd7b-4c77-b9b8-f4790c2dab2d",
+                    "path": "<HID::PowerA NSW wired controller>/hat/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "4bb1b272-3a05-4916-8d7e-678fbc7e8128",
+                    "path": "<HID::PowerA NSW wired controller>/stick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
                     "name": "",
                     "id": "6513b5d1-7451-4753-8b06-ec802dde7b15",
                     "path": "<Gamepad>/buttonNorth",
@@ -234,6 +322,17 @@
                     "name": "",
                     "id": "0e49c264-fd1a-47ca-b364-dc455ab61094",
                     "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "NextCharacter",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "adb7daba-f698-4a61-ae9e-9246c317ee09",
+                    "path": "<HID::PowerA NSW wired controller>/button2",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

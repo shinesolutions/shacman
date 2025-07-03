@@ -8,6 +8,8 @@ public class Movement : MonoBehaviour
     public Vector2 initialDirection;
     public LayerMask obstacleLayer;
 
+    private const float SPEED_INCREMENT = 0.15f;
+
     public Rigidbody2D rb { get; private set; }
     public Vector2 direction { get; private set; }
     public Vector2 nextDirection { get; private set; }
@@ -35,7 +37,7 @@ public class Movement : MonoBehaviour
 
     public void IncreaseSpeed()
     {
-        speedMultiplier += 0.1f;
+        speedMultiplier += SPEED_INCREMENT;
     }
 
     public void ResetSpeed()

@@ -10,7 +10,7 @@ public class MenuController : MonoBehaviour
         // Load and display the high score when the menu starts.
         if (hiScoreText != null)
         {
-            hiScoreText.text = "HI-SCORE: " + HiScoreUtil.GetTopScore().ToString();
+            hiScoreText.text = HiScoreUtil.GetTopScore().ToString();
         }
     }
 
