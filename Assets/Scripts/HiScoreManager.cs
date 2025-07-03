@@ -144,34 +144,29 @@ public class HiScoreManager : MonoBehaviour
         UpdateNameDisplayText();
     }
 
-    private void HandleNameEntryInput()
-    {
-        // This method is now handled by OnMove and OnSubmit
-    }
-
     private void OnMove(InputValue value)
     {
         if (!nameEntryPanel.activeSelf) return;
 
         Vector2 input = value.Get<Vector2>().normalized;
 
-        if (input.x > 0.5f) // Right
-        {
-            currentNameCharIndex = (currentNameCharIndex + 1) % currentName.Length;
-        }
-        else if (input.x < -0.5f) // Left
-        {
-            currentNameCharIndex = (currentNameCharIndex - 1 + currentName.Length) % currentName.Length;
-        }
-        else if (input.y > 0.5f) // Up
-        {
-            ChangeCharacter(1);
-        }
-        else if (input.y < -0.5f) // Down
+        if (input.y > 0.5f) // Up
         {
             ChangeCharacter(-1);
         }
+        else if (input.y < -0.5f) // Down
+        {
+            ChangeCharacter(1);
+        }
 
+        UpdateNameDisplayText();
+    }
+
+    private void OnNextCharacter()
+    {
+        if (!nameEntryPanel.activeSelf) return;
+
+        currentNameCharIndex = (currentNameCharIndex + 1) % currentName.Length;
         UpdateNameDisplayText();
     }
 

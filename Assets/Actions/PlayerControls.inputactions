@@ -31,6 +31,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "NextCharacter",
+                    "type": "Button",
+                    "id": "bf19ef6a-0d5e-4402-ae1e-7d7fe2723212",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -38,7 +47,7 @@
                     "name": "",
                     "id": "cb35d848-c654-48bb-b4dd-50dd47948f91",
                     "path": "<Gamepad>/buttonWest",
-                    "interactions": "Tap",
+                    "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Start",
@@ -60,7 +69,7 @@
                     "name": "",
                     "id": "57af679f-54dc-417a-81c9-9b109236846e",
                     "path": "<Gamepad>/buttonWest",
-                    "interactions": "Tap",
+                    "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Submit",
@@ -207,6 +216,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6513b5d1-7451-4753-8b06-ec802dde7b15",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "NextCharacter",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0e49c264-fd1a-47ca-b364-dc455ab61094",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "NextCharacter",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
